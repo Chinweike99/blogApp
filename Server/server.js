@@ -2,6 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import router from './Routes/userRoutes.js';
+import blogRouter from './Routes/blogRout.js';
 import cors from 'cors';
 
 dotenv.config();
@@ -11,6 +12,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use('/app/user', router)
+app.use('/app/blog', blogRouter)
 
 // Connect to mongodb
 mongoose.connect(process.env.MONGOOSE_URL)
