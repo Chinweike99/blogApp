@@ -7,9 +7,18 @@ import { Blogs } from './Components/Blogs';
 import { UserBlogs} from './Components/UserBlogs';
 import { BlogDetails} from './Components/BlogDetails';
 import { Addblogs} from './Components/Addblogs';
+import { useSelector } from 'react-redux';
 
+/**
+ * useSelector: to grab the state of the redux from the store
+ * 
+ */
 
 function App() {
+
+  const isLoggedIn = useSelector((state)=> state.isLoggedIn);
+  console.log(isLoggedIn)
+
   return (
     <div className="App">
       <React.Fragment>
