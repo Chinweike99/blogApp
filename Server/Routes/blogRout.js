@@ -1,9 +1,12 @@
 import express from 'express';
-import { addPost, getAllBlogs, updateBlog } from '../Controllers/blogControl.js';
+import { addPost, deleteBlog, getAllBlogs, getById, getByUserId, updateBlog } from '../Controllers/blogControl.js';
 const blogRouter = express.Router();
 
-blogRouter.get('/', getAllBlogs)
-blogRouter.post('/add', addPost)
-blogRouter.put('/update/:id', updateBlog)
+blogRouter.get('/', getAllBlogs);
+blogRouter.post('/add', addPost);
+blogRouter.put('/update/:id', updateBlog);
+blogRouter.get('/:id', getById);
+blogRouter.delete('/:id', deleteBlog);
+blogRouter.get('/user/:id', getByUserId);
 
 export default blogRouter;
