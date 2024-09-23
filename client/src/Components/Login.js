@@ -1,7 +1,19 @@
 import { Box, Button, TextField, Typography } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { authActions } from '../Store';
+import { useNavigate } from 'react-router-dom';
+
+/**
+ * If Signup and Login functions successfully, then update the state in the redux.
+ * useDispatch: This is what dispatches actions to the redux(performs the above)
+ * @returns 
+ */
 
 export const Login = () => {
+  const dispath = useDispatch();
+  const navigate = useNavigate();
   const [isSignup, setSignup] = useState(false);
   const [inputs, setInputs] = useState({
     name: "", email: "", password: ""
@@ -12,15 +24,47 @@ export const Login = () => {
   }
 
 
-  const handleSubmit = (e)=>{
-    e.preventDefault();
-    console.log(inputs)
+  /**
+ * axios.post takes in 2 parameters, (1)The url request is made to, and (2).JSON data that needs to be sent to the backend
+ * sendRequest: Function to send login request to the backend
+ */
+  const sendRequest = async(type=("login")) =>{
+    const res = await axios.post(`http://localhost:3005/app/user/${type}`, {
+      name: inputs.name,
+      email: inputs.email,
+      password: inputs.password
+    }).catch(err => console.log(err))
 
+    // If response is successful
+    const data = await res.data;
+    return data;
   }
 
 
+  const handleSubmit = (e)=>{
+    e.preventDefault();
+    if(isSignup){
+      // .then(()=> dispath(authActions.login())).then(()=>navigate("/blogs")), should implemened after login and Signup has been tested to be working fine
+
+      sendRequest("signup").then(()=> dispath(authActions.login())).then(()=>navigate("/blogs")).then(data=>console.log(data));
+    }else{
+      sendRequest().then(()=> dispath(authActions.login())).then(()=>navigate("/blogs")).then(data => console.log(data));
+    }
+    // console.log(inputs)
 
 
+    // ALTERNATIVE FOR THE ABOVE sendRequest function.
+    // axios.post("http://localhost:3005/app/user/signup", inputs)
+    // .then(res => {
+    //   console.log("Signup Successful", res.data);
+    //   setInputs({
+    //     name: "",
+    //     email: "",
+    //     password: ""
+    //   });
+    // }).catch(err => console.log(err))
+
+  }
 
   const handleSigup = () => {
     setSignup(!isSignup);
