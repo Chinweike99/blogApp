@@ -8,19 +8,16 @@ export const Header = () => {
     <AppBar position='sticky' sx={{background: "radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(201,70,252,1) 100%);"}}>
         <Toolbar>
             <Typography variant='h4'>MY BLOG</Typography>
-            <Box display="flex">
+            <Box display="flex" marginLeft="auto" marginRight="auto">
                 <Tabs value={value} onChange={(e, val) => setValue(val)} textColor="inherit">
-                    <Tab label="All Blogs" />
-                    <Tab label="My blogs" />
+                    <Tab LinkComponent={Link} to="/blogs" label="All Blogs" />
+                    <Tab LinkComponent={Link} to="/userBlogs" label="My blogs" />
                 </Tabs>
             </Box>
 
             <Box display="flex" marginLeft="auto">
-                <Link to='/login'>
-                <Button variant='contained' sx={{margin: 1, borderRadius: 10}}>Login</Button>
-                </Link>
-                
-                <Button variant='contained' sx={{margin: 1, borderRadius: 10}}> Signup</Button>
+                <Button LinkComponent={Link} to="/login" variant='contained' sx={{margin: 1, borderRadius: 10}}>Login</Button>  
+                <Button LinkComponent={Link} to="/login" variant='contained' sx={{margin: 1, borderRadius: 10}}> Signup</Button>
                 <Button variant='contained' sx={{margin: 1, borderRadius: 10}}>Logout</Button>
             </Box>
 
