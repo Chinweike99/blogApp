@@ -51,7 +51,7 @@ export const signUp = async(req, res, next) => {
     } catch (error) {
         console.log(error)
     }
-    return res.status(201).json({user})
+    return res.status(201).json({ user })
 
 
 /** THE METHOD BELOW WORKS SAME WAY AS THE ABOVE */
@@ -90,7 +90,7 @@ export const logIn = async(req, res) => {
         if(!isPasswordCorrect){
             return res.status(400).json({message: "Password Incorrect"});
         }
-        return res.status(200).json({message: "Login was successful"})
+        return res.status(200).json({message: "Login was successful", user: existingUser})
     }
     console.log(existingUser);
 }

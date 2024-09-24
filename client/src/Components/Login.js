@@ -40,15 +40,18 @@ export const Login = () => {
     return data;
   }
 
+/**
+ * localStorage: is a built-in web API that allows you to store key-value pairs in a web browser on a user's device. The data in localStorage persists across browser sessions, meaning it remains stored even after the user closes and reopens the browser or navigates to a different page within the same site. 
+ */
 
   const handleSubmit = (e)=>{
     e.preventDefault();
     if(isSignup){
       // .then(()=> dispath(authActions.login())).then(()=>navigate("/blogs")), should implemened after login and Signup has been tested to be working fine
 
-      sendRequest("signup").then(()=> dispath(authActions.login())).then(()=>navigate("/blogs")).then(data=>console.log(data));
+      sendRequest("signup").then((data)=>localStorage.setItem("userId", data.user._id)).then(()=> dispath(authActions.login())).then(()=>navigate("/blogs")).then(data=>console.log(data));
     }else{
-      sendRequest().then(()=> dispath(authActions.login())).then(()=>navigate("/blogs")).then(data => console.log(data));
+      sendRequest().then((data)=>localStorage.setItem("userId", data.user._id)).then(()=> dispath(authActions.login())).then(()=>navigate("/blogs")).then(data => console.log(data));
     }
     // console.log(inputs)
 

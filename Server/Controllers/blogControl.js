@@ -11,7 +11,7 @@ import User from '../Model/model.js'
 export const getAllBlogs = async(req, res, next) => {
     let blogs;
     try {
-        blogs = await Blog.find();
+        blogs = await Blog.find().populate("user");
     } catch (error) {
         return console.log(error)
     }
@@ -79,7 +79,7 @@ export const updateBlog = async(req, res, next) =>{
     // findByIdAndUpdate takes in two parameters, a blog id and the contents to update
     try {
         blog = await Blog.findByIdAndUpdate(blogId, {
-            title,descripton
+            title, descripton
         })
     } catch (error) {
         return console.log(error)
