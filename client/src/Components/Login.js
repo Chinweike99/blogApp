@@ -29,15 +29,27 @@ export const Login = () => {
  * sendRequest: Function to send login request to the backend
  */
   const sendRequest = async(type=("login")) =>{
+    try{
     const res = await axios.post(`http://localhost:3005/app/user/${type}`, {
       name: inputs.name,
       email: inputs.email,
       password: inputs.password
-    }).catch(err => console.log(err))
+    });
+    // Ensure the response is not undefined or null
+    if (res && res.data) {
+      const data = res.data;
+      console.log(data);
+      return data;
+    }
+    
+  } catch (err) {
+    console.error("Error occurred:", err);
+  }
 
     // If response is successful
-    const data = await res.data;
-    return data;
+    // const data = await res.data;
+    // console.log(data);
+    // return data;
   }
 
 /**
